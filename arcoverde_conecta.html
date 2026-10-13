@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arcoverde Conecta | Gestão de Demandas</title>
+<style>
+:root{font-family:Inter,system-ui,Arial,sans-serif;color:#17324b;background:#f3f7fb}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(110deg,#075985,#0f766e);color:white;padding:27px max(20px,calc((100vw - 1160px)/2))}header h1{margin:0;font-size:28px}header p{margin:6px 0 0;opacity:.9}main{max-width:1160px;margin:26px auto;padding:0 18px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat,.panel{background:white;border:1px solid #e0e9f0;border-radius:14px;padding:19px;box-shadow:0 4px 16px #16324a0b}.stat strong{display:block;font-size:29px;margin-top:6px;color:#075985}.stat span{color:#64748b;font-size:13px}.layout{display:grid;grid-template-columns:360px 1fr;gap:18px;margin-top:18px}h2{font-size:19px;margin:0 0 16px}label{font-weight:600;font-size:13px;display:block;margin:12px 0 5px}input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;background:white;font:inherit;color:#17324b}textarea{resize:vertical;min-height:85px}button{border:0;border-radius:9px;background:#087e83;color:white;padding:11px 15px;font-weight:700;cursor:pointer}button:hover{filter:brightness(.94)}button.secondary{background:#e8f1f6;color:#16435c}button.danger{background:#fee2e2;color:#991b1b}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}.full{width:100%;margin-top:15px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.toolbar input{flex:1;min-width:140px}.toolbar select{width:auto;min-width:145px}.item{border:1px solid #e2e8f0;border-radius:12px;padding:15px;margin-bottom:12px}.item-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.item h3{margin:0;font-size:16px}.meta{font-size:12px;color:#64748b;margin:7px 0}.desc{font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}.pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:800;background:#e2e8f0;color:#334155}.alta{background:#fee2e2;color:#991b1b}.media{background:#fef3c7;color:#92400e}.baixa{background:#dcfce7;color:#166534}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}.actions select{max-width:180px}.actions button{font-size:12px;padding:9px}.history{font-size:12px;color:#64748b;margin-top:10px;border-top:1px dashed #ddd;padding-top:8px}.empty{text-align:center;color:#64748b;padding:30px}.notice{font-size:12px;color:#64748b;margin-top:12px}.detail{font-size:13px;color:#475569;margin:4px 0}.photo{max-width:100%;max-height:180px;border-radius:8px;margin-top:8px}footer{text-align:center;color:#64748b;padding:24px;font-size:12px}@media(max-width:850px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.stats{grid-template-columns:1fr 1fr}.stat{padding:12px}.toolbar select{width:100%}}
+</style>
+</head>
+<body>
+<header><h1>🏙️ Arcoverde Conecta</h1><p>Central de registro, priorização e acompanhamento de serviços públicos</p></header>
+<main>
+<section class="stats" aria-label="Indicadores"><div class="stat"><span>Total de demandas</span><strong id="total">0</strong></div><div class="stat"><span>Pendentes</span><strong id="pendentes">0</strong></div><div class="stat"><span>Em andamento</span><strong id="andamento">0</strong></div><div class="stat"><span>Concluídas</span><strong id="concluidas">0</strong></div></section>
+<div class="layout"><section class="panel"><h2>➕ Nova demanda</h2><form id="form">
+<label for="titulo">Título do problema *</label><input id="titulo" maxlength="100" required placeholder="Ex.: Poste apagado na rua">
+<label for="categoria">Categoria *</label><select id="categoria" required><option value="">Selecione</option><option>Iluminação pública</option><option>Limpeza urbana</option><option>Buracos e pavimentação</option><option>Água e saneamento</option><option>Saúde</option><option>Outros</option></select>
+<label for="bairro">Bairro ou comunidade *</label><input id="bairro" required maxlength="90" placeholder="Ex.: Centro">
+<label for="endereco">Endereço ou referência *</label><input id="endereco" required maxlength="160" placeholder="Rua, número ou ponto de referência">
+<label for="descricao">Descrição *</label><textarea id="descricao" required maxlength="1200" placeholder="Descreva o problema"></textarea>
+<label for="urgencia">Urgência *</label><select id="urgencia"><option value="1">Baixa</option><option value="2">Média</option><option value="3">Alta</option></select>
+<label for="alcance">Pessoas afetadas (estimativa) *</label><input id="alcance" type="number" min="1" max="1000000" value="1" required>
+<label for="responsavel">Responsável (opcional)</label><input id="responsavel" maxlength="100" placeholder="Equipe ou servidor">
+<label for="prazo">Prazo previsto (opcional)</label><input id="prazo" type="date">
+<label for="foto">Fotografia (opcional, até 1 MB)</label><input id="foto" type="file" accept="image/*">
+<button class="full" type="submit">Cadastrar demanda</button></form><p class="notice">Demonstração: os dados ficam salvos somente neste navegador. Não utilize dados pessoais reais.</p></section>
+<section class="panel"><h2>📋 Painel de demandas</h2><div class="toolbar"><input id="busca" aria-label="Pesquisar demandas" placeholder="Buscar por protocolo, bairro, título..."><select id="filtro" aria-label="Filtrar por status"><option value="">Todos os status</option><option>Pendente</option><option>Em andamento</option><option>Concluída</option></select><button id="exportar" type="button" class="secondary">Exportar CSV</button></div><div id="lista" aria-live="polite"></div></section></div>
+</main><footer>Protótipo acadêmico independente • Desafios Day 2026 • Arcoverde, Pernambuco</footer>
+<script>
+'use strict';
+const KEY='arcoverde-conecta-v1';
+let demandas=[];
+try{const saved=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(saved))demandas=saved;}catch(e){console.warn('Dados locais indisponíveis',e)}
+const $=id=>document.getElementById(id);
+const setor={"Iluminação pública":"Iluminação / Obras","Limpeza urbana":"Limpeza urbana","Buracos e pavimentação":"Obras e infraestrutura","Água e saneamento":"Saneamento / setor competente","Saúde":"Saúde","Outros":"Triagem municipal"};
+const dateNow=()=>new Date().toISOString();
+const dataBR=s=>new Date(s).toLocaleString('pt-BR');
+function save(){try{localStorage.setItem(KEY,JSON.stringify(demandas));return true}catch(e){alert('Não foi possível salvar. Reduza o tamanho da fotografia ou libere espaço no navegador.');return false}}
+function score(d){return Number(d.urgencia)*10+(Number(d.alcance)>=100?10:Number(d.alcance)>=20?5:0)}
+function prioridade(d){const p=score(d);return p>=35?'Alta':p>=20?'Média':'Baixa'}
+function make(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
+function render(){
+ $('total').textContent=demandas.length;$('pendentes').textContent=demandas.filter(d=>d.status==='Pendente').length;$('andamento').textContent=demandas.filter(d=>d.status==='Em andamento').length;$('concluidas').textContent=demandas.filter(d=>d.status==='Concluída').length;
+ const q=$('busca').value.toLocaleLowerCase('pt-BR'),f=$('filtro').value;
+ const filtered=demandas.filter(d=>(!f||d.status===f)&&[d.id,d.titulo,d.bairro,d.categoria,d.endereco].join(' ').toLocaleLowerCase('pt-BR').includes(q)).sort((a,b)=>Number(a.status==='Concluída')-Number(b.status==='Concluída')||score(b)-score(a)||b.criado.localeCompare(a.criado));
+ const list=$('lista');list.replaceChildren();if(!filtered.length){list.append(make('p','Nenhuma demanda encontrada.','empty'));return}
+ for(const d of filtered){const item=make('article',undefined,'item'),head=make('div',undefined,'item-head'),left=make('div');left.append(make('h3',d.titulo),make('p',`${d.id} • ${d.categoria} • ${d.bairro}`,'meta'));head.append(left,make('span',`Prioridade ${prioridade(d)}`,`pill ${prioridade(d)==='Alta'?'alta':prioridade(d)==='Média'?'media':'baixa'}`));item.append(head,make('p',d.descricao,'desc'));
+ for(const info of [`📍 ${d.endereco}`,`🏢 Setor: ${d.setor}`,`👤 Responsável: ${d.responsavel||'Não atribuído'}`,`👥 Pessoas afetadas: ${d.alcance}`,`📅 Prazo: ${d.prazo?d.prazo.split('-').reverse().join('/'):'Não definido'}`,`🕒 Criada em: ${dataBR(d.criado)}`])item.append(make('p',info,'detail'));
+ if(d.prazo&&d.status!=='Concluída'&&d.prazo<new Date().toLocaleDateString('en-CA'))item.append(make('span','Prazo vencido','pill alta'));
+ if(d.foto){const img=document.createElement('img');img.src=d.foto;img.alt='Foto anexada à demanda';img.className='photo';item.append(img)}
+ const actions=make('div',undefined,'actions'),sel=document.createElement('select');sel.setAttribute('aria-label',`Status da demanda ${d.id}`);for(const st of ['Pendente','Em andamento','Concluída']){const o=new Option(st,st);sel.add(o)}sel.value=d.status;sel.addEventListener('change',()=>{const prev=d.status;d.status=sel.value;d.historico.push(`${dataBR(dateNow())}: status alterado para ${d.status}`);if(!save()){d.status=prev;d.historico.pop()}render()});actions.append(sel);
+ const btn=make('button','Registrar providência','secondary');btn.type='button';btn.addEventListener('click',()=>{const msg=prompt('Descreva a providência adotada:');if(!msg||!msg.trim())return;d.historico.push(`${dataBR(dateNow())}: ${msg.trim().slice(0,500)}`);if(!save())d.historico.pop();render()});actions.append(btn);item.append(actions);
+ const hist=make('details',undefined,'history'),sum=make('summary',`Histórico (${d.historico.length} registros)`);hist.append(sum);for(const h of d.historico)hist.append(make('p',h));item.append(hist);list.append(item)}
+}
+$('form').addEventListener('submit',async e=>{e.preventDefault();const file=$('foto').files[0];if(file&&(file.size>1024*1024||!file.type.startsWith('image/'))){alert('Escolha uma imagem válida de até 1 MB.');return}let foto='';if(file){foto=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)}).catch(()=>null);if(!foto){alert('Não foi possível ler a imagem.');return}}
+ const criado=dateNow(),d={id:'ARC-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,5).toUpperCase(),titulo:$('titulo').value.trim(),categoria:$('categoria').value,bairro:$('bairro').value.trim(),endereco:$('endereco').value.trim(),descricao:$('descricao').value.trim(),urgencia:Number($('urgencia').value),alcance:Number($('alcance').value),responsavel:$('responsavel').value.trim(),prazo:$('prazo').value,foto,setor:setor[$('categoria').value],status:'Pendente',criado,historico:[`${dataBR(criado)}: demanda registrada e encaminhada para ${setor[$('categoria').value]}`]};
+ if(!d.titulo||!d.bairro||!d.endereco||!d.descricao||!Number.isFinite(d.alcance)||d.alcance<1)return;demandas.push(d);if(!save())demandas.pop();else{$('form').reset();alert(`Demanda cadastrada! Protocolo: ${d.id}`)}render()});
+$('busca').addEventListener('input',render);$('filtro').addEventListener('change',render);
+$('exportar').addEventListener('click',()=>{const fields=['id','titulo','categoria','bairro','endereco','descricao','urgencia','alcance','setor','responsavel','prazo','status','criado'];const quote=v=>'"'+String(v??'').replace(/^[=+@\-\t\r]/,'\'$&').replace(/"/g,'""')+'"';const csv='\ufeff'+[fields.join(';'),...demandas.map(d=>fields.map(k=>quote(d[k])).join(';'))].join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='demandas_arcoverde.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
+render();
+</script>
+</body></html>
